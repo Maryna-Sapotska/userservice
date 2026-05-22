@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/userservice}
+    username: ${DB_USERNAME:userservice}
+    password: ${DB_PASSWORD:userservice}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    open-in-view: false
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    clear-check-sums: true
+
+  data:
+    redis:
+      host: ${SPRING_REDIS_HOST:localhost}
+      port: ${SPRING_REDIS_PORT:6379}
+
+  cache:
+    type: redis
+
+server:
+  port: 8080
+
+logging:
+  level:
+    org.springframework.cache: TRACE
+    org.springframework.data.redis: DEBUG
+    org.springframework.cache.interceptor: TRACE
