@@ -36,7 +36,7 @@ jobs:
       - name: SonarQube Scan
         run: |
           mvn clean verify sonar:sonar \
-            -Dsonar.projectKey=Maryna-Sapotska_userservice \ 
+            -Dsonar.projectKey=Maryna-Sapotska_userservice \
             -Dsonar.organization=maryna-sapotska \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
