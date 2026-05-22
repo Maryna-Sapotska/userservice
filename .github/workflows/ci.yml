@@ -55,6 +55,7 @@ jobs:
           name: docker-image
           path: userservice.tar
 
-      - name: Debug Sonar Host
+      - name: Debug sonar
         run: |
-          echo "HOST=${{ secrets.SONAR_HOST_URL }}"
+          echo "HOST=https://sonarcloud.io"
+          env | grep SONAR
