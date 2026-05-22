@@ -36,8 +36,9 @@ jobs:
       - name: SonarQube Scan
         run: |
           mvn clean verify sonar:sonar \
-            -Dsonar.projectKey=userservice \
-            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+            -Dsonar.projectKey=Maryna-Sapotska_userservice \ 
+            -Dsonar.organization=maryna-sapotska \
+            -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
       - name: Build Docker image
