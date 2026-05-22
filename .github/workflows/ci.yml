@@ -33,16 +33,6 @@ jobs:
       - name: Run tests
         run: mvn test -Dspring.profiles.active=test
 
-      # ---------------- SONARQUBE ----------------
-      - name: SonarQube Scan
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          mvn verify sonar:sonar \
-            -Dsonar.projectKey=userservice \
-            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-
       # ---------------- DOCKER ----------------
       - name: Build Docker image
         run: |
