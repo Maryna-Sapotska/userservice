@@ -2,7 +2,7 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ "main", "develop" ]
+    branches: [ "main", "develop", "features/**" ]
   pull_request:
 
 jobs:
@@ -32,6 +32,14 @@ jobs:
 
       - name: Run tests
         run: mvn test -Dspring.profiles.active=test
+
+      # ---------------- SONARQUBE ----------------
+      - name: SonarQube Scan
+        run: |
+          mvn clean verify sonar:sonar \
+            -Dsonar.projectKey=userservice \
+            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
       # ---------------- DOCKER ----------------
       - name: Build Docker image
