@@ -31,8 +31,7 @@ Microservice application for managing users and payment cards.
     - name
     - surname
     - active status
-- Update user
-- Activate/deactivate user
+- Update user (including activation status via PATCH)
 - Delete user
 
 ## Card Management
@@ -41,8 +40,7 @@ Microservice application for managing users and payment cards.
 - Get card by id
 - Get all cards with pagination
 - Get cards by user id
-- Update card
-- Activate/deactivate card
+- Update card (including activation status via PATCH)
 - Delete card
 
 
@@ -160,30 +158,26 @@ Used inside Docker Compose network.
 
 ## Users
 
-| Method | Endpoint                 | Description     |
-|--------|--------------------------|-----------------|
-| POST   | `/users`                 | Create user     |
-| GET    | `/users/{id}`            | Get user by id  |
-| GET    | `/users`                 | Get all users   |
-| PUT    | `/users/{id}`            | Update user     |
-| PATCH  | `/users/{id}/activate`   | Activate user   |
-| PATCH  | `/users/{id}/deactivate` | Deactivate user |
-| DELETE | `/users/{id}`            | Delete user     |
+| Method | Endpoint      | Description                         |
+| ------ | ------------- | ----------------------------------- |
+| POST   | `/users`      | Create user                         |
+| GET    | `/users/{id}` | Get user by id                      |
+| GET    | `/users`      | Get all users                       |
+| PATCH  | `/users/{id}` | Update user (including active flag) |
+| DELETE | `/users/{id}` | Delete user                         |
 
 ---
 
 ## Cards
 
-| Method | Endpoint                 | Description          |
-|--------|--------------------------|----------------------|
-| POST   | `/cards`                 | Create card          |
-| GET    | `/cards/{id}`            | Get card by id       |
-| GET    | `/cards`                 | Get all cards        |
-| GET    | `/cards/user/{userId}`   | Get cards by user id |
-| PUT    | `/cards/{id}`            | Update card          |
-| PATCH  | `/cards/{id}/activate`   | Activate card        |
-| PATCH  | `/cards/{id}/deactivate` | Deactivate card      |
-| DELETE | `/cards/{id}`            | Delete card          |
+| Method | Endpoint               | Description                         |
+| ------ | ---------------------- | ----------------------------------- |
+| POST   | `/cards`               | Create card                         |
+| GET    | `/cards/{id}`          | Get card by id                      |
+| GET    | `/cards`               | Get all cards                       |
+| GET    | `/cards/user/{userId}` | Get cards by user id                |
+| PATCH  | `/cards/{id}`          | Update card (including active flag) |
+| DELETE | `/cards/{id}`          | Delete card                         |
 
 ---
 
