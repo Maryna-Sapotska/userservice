@@ -35,11 +35,11 @@ jobs:
 
       - name: SonarQube Scan
         run: |
-          mvn clean verify sonar:sonar \
+          mvn sonar:sonar \
             -Dsonar.projectKey=Maryna-Sapotska_userservice \
             -Dsonar.organization=maryna-sapotska \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
 
       - name: Build Docker image
         run: |
@@ -55,7 +55,7 @@ jobs:
           name: docker-image
           path: userservice.tar
 
-      - name: Debug sonar
+      - name: Debug Sonar env
         run: |
-          echo "HOST=https://sonarcloud.io"
-          env | grep SONAR
+          echo "SONAR_HOST_URL=$SONAR_HOST_URL"
+          echo "SONAR_TOKEN exists? ${{ secrets.SONAR_TOKEN != '' }}"
