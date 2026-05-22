@@ -50,7 +50,5 @@ jobs:
           name: docker-image
           path: userservice.tar
 
-      - name: Debug Sonar env
-        run: |
-          echo "SONAR_HOST_URL=$SONAR_HOST_URL"
-          echo "SONAR_TOKEN exists? ${{ secrets.SONAR_TOKEN != '' }}"
+      - name: Debug Sonar props
+        run: mvn help:evaluate -Dexpression=sonar.host.url -q -DforceStdout
