@@ -33,7 +33,6 @@ jobs:
       - name: Run tests
         run: mvn test -Dspring.profiles.active=test
 
-      # ---------------- SONARQUBE ----------------
       - name: SonarQube Scan
         run: |
           mvn clean verify sonar:sonar \
@@ -41,7 +40,6 @@ jobs:
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
-      # ---------------- DOCKER ----------------
       - name: Build Docker image
         run: |
           docker build -t userservice:latest .
@@ -55,3 +53,7 @@ jobs:
         with:
           name: docker-image
           path: userservice.tar
+
+      - name: Debug Sonar Host
+        run: |
+          echo "HOST=${{ secrets.SONAR_HOST_URL }}"
