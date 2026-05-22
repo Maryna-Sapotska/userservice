@@ -27,14 +27,14 @@ jobs:
           java-version: 21
           cache: maven
 
-      - name: Build + Test + Sonar
-        run: |
-          mvn clean verify sonar:sonar \
-            -Dspring.profiles.active=test \
-            -Dsonar.projectKey=Maryna-Sapotska_userservice \
-            -Dsonar.organization=maryna-sapotska \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+      - name: Build + Test
+        run: mvn clean verify -Dspring.profiles.active=test
+
+      - name: Sonar
+        run: mvn sonar:sonar \
+          -Dsonar.projectKey=Maryna-Sapotska_userservice \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.token=${{ secrets.SONAR_TOKEN }}
 
       - name: Build Docker image
         run: |
@@ -50,5 +50,5 @@ jobs:
           name: docker-image
           path: userservice.tar
 
-      - name: Debug Sonar props
+      - name: Debug sonar host
         run: mvn help:evaluate -Dexpression=sonar.host.url -q -DforceStdout
