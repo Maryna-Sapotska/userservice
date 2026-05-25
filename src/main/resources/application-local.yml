@@ -1,0 +1,14 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/userservice}
+    username: ${DB_USERNAME:userservice}
+    password: ${DB_PASSWORD:userservice}
+
+    data:
+      redis:
+        host: ${SPRING_REDIS_HOST:localhost}
+        port: ${SPRING_REDIS_PORT:6379}

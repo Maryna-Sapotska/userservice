@@ -43,8 +43,6 @@ postgres-data/
 ### Env / secrets ###
 .env
 .env.*
-application-local.yml
-application-docker.yml
 
 ### Logs ###
 *.log

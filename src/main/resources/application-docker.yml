@@ -1,0 +1,21 @@
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+    data:
+      redis:
+        host: ${SPRING_REDIS_HOST}
+        port: ${SPRING_REDIS_PORT}
+
+    jpa:
+      hibernate:
+        ddl-auto: none
+
+    liquibase:
+      enabled: true
