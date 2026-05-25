@@ -57,7 +57,7 @@ public class FullFlowIntegrationTest extends AbstractIntegrationTest{
 
         CardDTO card = objectMapper.readValue(cardResponse, CardDTO.class);
 
-        mockMvc.perform(get("/cards/{id}/with-cards", user.getId()))
+        mockMvc.perform(get("/users/{userId}/cards", user.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.cards").isArray())
                 .andExpect(jsonPath("$.cards[0].holder").value("JOHN DOE"));
