@@ -27,21 +27,17 @@ jobs:
           java-version: 21
           cache: maven
 
-      - name: Build project
+      - name: Build + Test
         run: mvn clean verify
 
-      - name: Run tests
-        run: mvn test -Dspring.profiles.active=test
-
       # ---------------- SONARQUBE ----------------
-      - name: SonarQube Scan
+      - name: SonarCloud
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          mvn verify sonar:sonar \
+          mvn sonar:sonar \
             -Dsonar.projectKey=userservice \
-            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
 
       # ---------------- DOCKER ----------------
       - name: Build Docker image
