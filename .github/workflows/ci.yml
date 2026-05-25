@@ -37,6 +37,7 @@ jobs:
         run: |
           mvn sonar:sonar \
             -Dsonar.projectKey=userservice \
+            -Dsonar.organization=maryna-sapotska \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=${{ secrets.SONAR_TOKEN }}
 
