@@ -1,9 +1,6 @@
 package com.innowise.userservice.controller;
 
-import com.innowise.userservice.model.CreateUserDto;
-import com.innowise.userservice.model.UpdateUserDto;
-import com.innowise.userservice.model.UserDTO;
-import com.innowise.userservice.model.UserWithCardsDto;
+import com.innowise.userservice.model.*;
 import com.innowise.userservice.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * REST controller for user management endpoints.
@@ -36,6 +35,12 @@ public class UserController {
     public ResponseEntity<UserDTO> getById(@PathVariable Long id) {
         return ResponseEntity
                 .ok(userService.getById(id));
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserWithCardsDto> getUserWithCards(@PathVariable Long userId){
+        return ResponseEntity
+                .ok(userService.getUserWithCards(userId));
     }
 
     @GetMapping

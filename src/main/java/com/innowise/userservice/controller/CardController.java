@@ -61,12 +61,6 @@ public class CardController {
         return ResponseEntity.ok(cardService.update(id, dto));
     }
 
-    @GetMapping("/{id}/with-cards")
-    public ResponseEntity<UserWithCardsDto> getUserWithCards(@PathVariable Long id){
-        return ResponseEntity
-                .ok(userService.getUserWithCards(id));
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         cardService.delete(id);
