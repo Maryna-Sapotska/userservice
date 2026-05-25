@@ -17,6 +17,7 @@ Microservice application for managing users and payment cards.
 - Mockito
 - MapStruct
 - Maven
+- Swagger/OpenAPI
 
 ---
 
@@ -158,13 +159,14 @@ Used inside Docker Compose network.
 
 ## Users
 
-| Method | Endpoint      | Description                         |
-| ------ | ------------- | ----------------------------------- |
-| POST   | `/users`      | Create user                         |
-| GET    | `/users/{id}` | Get user by id                      |
-| GET    | `/users`      | Get all users                       |
-| PATCH  | `/users/{id}` | Update user (including active flag) |
-| DELETE | `/users/{id}` | Delete user                         |
+| Method | Endpoint                | Description                         |
+|--------|-------------------------|-------------------------------------|
+| POST   | `/users`                | Create user                         |
+| GET    | `/users/{id}`           | Get user by id                      |
+| GET    | `/users`                | Get all users                       |
+| GET    | `/users/{userId}/cards` | Get user with cards                 |
+| PATCH  | `/users/{id}`           | Update user (including active flag) |
+| DELETE | `/users/{id}`           | Delete user                         |
 
 ---
 
@@ -213,6 +215,12 @@ Redis caching implemented for:
 - Card by id
 
 Cache invalidation configured for update/delete operations.
+
+---
+
+# API docs URL
+
+http://localhost:8080/swagger-ui/index.html
 
 ---
 
