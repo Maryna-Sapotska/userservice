@@ -150,7 +150,7 @@ public class CardService {
     public void delete(Long id) {
         cardRepository.deleteById(id);
     }
-//get all cards
+
      /**
      * Returns paginated list of cards with optional filters.
      *
