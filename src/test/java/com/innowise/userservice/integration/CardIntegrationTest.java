@@ -1,9 +1,9 @@
 package com.innowise.userservice.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.innowise.userservice.model.CreateCardDto;
-import com.innowise.userservice.model.CreateUserDto;
-import com.innowise.userservice.model.UserDTO;
+import com.innowise.userservice.model.dto.CreateCardDto;
+import com.innowise.userservice.model.dto.CreateUserDto;
+import com.innowise.userservice.model.dto.UserDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

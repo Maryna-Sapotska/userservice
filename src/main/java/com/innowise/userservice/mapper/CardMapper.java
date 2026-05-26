@@ -1,16 +1,13 @@
 package com.innowise.userservice.mapper;
 
-import com.innowise.userservice.model.Card;
-import com.innowise.userservice.model.CardDTO;
-import com.innowise.userservice.model.CreateCardDto;
+import com.innowise.userservice.model.dto.CardDTO;
+import com.innowise.userservice.model.dto.CreateCardDto;
+import com.innowise.userservice.model.entity.Card;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.util.List;
 
-/**
- * Mapper for converting Card entities and DTOs.
- */
 @Mapper(componentModel = "spring")
 public interface CardMapper {
 

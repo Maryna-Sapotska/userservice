@@ -2,7 +2,11 @@ package com.innowise.userservice.service;
 
 import com.innowise.userservice.exception.BusinessException;
 import com.innowise.userservice.mapper.CardMapper;
-import com.innowise.userservice.model.*;
+import com.innowise.userservice.model.dto.CardDTO;
+import com.innowise.userservice.model.dto.CreateCardDto;
+import com.innowise.userservice.model.dto.UpdateCardDto;
+import com.innowise.userservice.model.entity.Card;
+import com.innowise.userservice.model.entity.User;
 import com.innowise.userservice.repository.CardRepository;
 import com.innowise.userservice.repository.UserRepository;
 import org.junit.jupiter.api.Test;

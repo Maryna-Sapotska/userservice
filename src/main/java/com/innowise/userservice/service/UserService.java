@@ -2,7 +2,12 @@ package com.innowise.userservice.service;
 
 import com.innowise.userservice.exception.UserNotFoundException;
 import com.innowise.userservice.mapper.UserMapper;
-import com.innowise.userservice.model.*;
+import com.innowise.userservice.model.dto.CreateUserDto;
+import com.innowise.userservice.model.dto.UpdateUserDto;
+import com.innowise.userservice.model.dto.UserDTO;
+import com.innowise.userservice.model.dto.UserWithCardsDto;
+import com.innowise.userservice.model.entity.CacheNames;
+import com.innowise.userservice.model.entity.User;
 import com.innowise.userservice.repository.UserRepository;
 import com.innowise.userservice.repository.UserSpecification;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +21,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Service layer for managing users.
- * Provides CRUD operations, filtering, caching,
- * and activation/deactivation functionality.
- */
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -30,40 +30,18 @@ public class UserService {
 
     private static final String USER_NOT_FOUND = "User not found";
 
-    /**
-     * Creates a new user.
-     *
-     * @param dto request object containing user data
-     * @return created user DTO
-     */
     public UserDTO create(CreateUserDto dto) {
         User user = userMapper.toEntity(dto);
         user.setActive(true);
         return userMapper.toDTO(userRepository.save(user));
     }
 
-    /**
-     * Retrieves user by id.
-     *
-     * @param id user identifier
-     * @return user DTO
-     * @throws UserNotFoundException if user does not exist
-     */
     @Cacheable(value = CacheNames.USERS, key = "#id")
     public UserDTO getById(Long id) {
         return userMapper.toDTO(userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND)));
     }
 
-    /**
-     * Returns paginated list of users with optional filters.
-     *
-     * @param name user name filter
-     * @param surname user surname filter
-     * @param active active status filter
-     * @param pageable pagination information
-     * @return page of users
-     */
     public Page<UserDTO> getAll(String name, String surname, Boolean active, Pageable pageable) {
 
         return userRepository.findAll(Specification
@@ -77,17 +55,10 @@ public class UserService {
                 .map(userMapper::toDTO);
     }
 
-    /**
-     * Updates user information.
-     *
-     * @param id user identifier
-     * @param dto updated user data
-     * @return updated user with cards
-     */
     @Transactional
-    @Caching(put = @CachePut(value = CacheNames.USERS, key = "#id"),
-            evict = {
-                    @CacheEvict(value = CacheNames.USERS_WITH_CARDS, key = "#id")
+    @Caching(evict = {
+            @CacheEvict(value = CacheNames.USERS, key = "#id"),
+            @CacheEvict(value = CacheNames.USERS_WITH_CARDS, key = "#id")
             })
     public UserWithCardsDto update(Long id, UpdateUserDto dto) {
         User user = userRepository.findById(id)
@@ -113,19 +84,14 @@ public class UserService {
             user.setActive(dto.getActive());
         }
 
-        userRepository.save(user);
+        User saved = userRepository.save(user);
 
-        User reloaded = userRepository.findByIdWithCards(id)
-                .orElseThrow();
+        User reloaded = userRepository.findByIdWithCards(saved.getId())
+                .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
+
         return userMapper.toUserWithCardsDto(reloaded);
     }
 
-    /**
-     * Returns user with associated payment cards.
-     *
-     * @param id user identifier
-     * @return user with cards DTO
-     */
     @Transactional(readOnly = true)
     @Cacheable(value = CacheNames.USERS_WITH_CARDS, key = "#id")
     public UserWithCardsDto getUserWithCards(Long id) {
@@ -134,12 +100,6 @@ public class UserService {
         return userMapper.toUserWithCardsDto(user);
     }
 
-    /**
-     * Deletes user by identifier.
-     *
-     * @param id user identifier
-     * @throws UserNotFoundException if user does not exist
-     */
     @Transactional
     @Caching(evict = {
             @CacheEvict(value = CacheNames.USERS, key = "#id"),

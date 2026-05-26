@@ -1,8 +1,8 @@
 package com.innowise.userservice.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.innowise.userservice.model.CreateUserDto;
-import com.innowise.userservice.model.UserDTO;
+import com.innowise.userservice.model.dto.CreateUserDto;
+import com.innowise.userservice.model.dto.UserDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -79,8 +79,6 @@ public class UserIntegrationTest extends AbstractIntegrationTest {
                 .andDo(print())
                 .andReturn();
 
-        System.out.println("EXCEPTION = " +
-                result.getResolvedException());
         UserDTO user =
                 objectMapper.readValue(response, UserDTO.class);
 
@@ -90,5 +88,4 @@ public class UserIntegrationTest extends AbstractIntegrationTest {
                 .andExpect(jsonPath("$.email")
                         .value(email));
     }
-
 }

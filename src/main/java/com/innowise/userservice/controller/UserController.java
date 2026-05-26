@@ -1,6 +1,9 @@
 package com.innowise.userservice.controller;
 
-import com.innowise.userservice.model.*;
+import com.innowise.userservice.model.dto.CreateUserDto;
+import com.innowise.userservice.model.dto.UpdateUserDto;
+import com.innowise.userservice.model.dto.UserDTO;
+import com.innowise.userservice.model.dto.UserWithCardsDto;
 import com.innowise.userservice.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -17,9 +20,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * REST controller for user management endpoints.
- */
 @RestController
 @RequestMapping(UserController.REST_URL)
 @RequiredArgsConstructor

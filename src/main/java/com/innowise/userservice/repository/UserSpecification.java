@@ -1,11 +1,8 @@
 package com.innowise.userservice.repository;
 
-import com.innowise.userservice.model.User;
+import com.innowise.userservice.model.entity.User;
 import org.springframework.data.jpa.domain.Specification;
 
-/**
- * Specifications for dynamic user filtering.
- */
 public class UserSpecification {
 
     public static Specification<User> hasName(String name) {

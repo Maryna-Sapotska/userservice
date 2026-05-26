@@ -1,11 +1,8 @@
 package com.innowise.userservice.repository;
 
-import com.innowise.userservice.model.Card;
+import com.innowise.userservice.model.entity.Card;
 import org.springframework.data.jpa.domain.Specification;
 
-/**
- * Specifications for dynamic card filtering.
- */
 public class CardSpecification {
 
     public static Specification<Card> hasHolder(String holder) {

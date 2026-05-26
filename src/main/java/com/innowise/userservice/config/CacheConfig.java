@@ -20,28 +20,11 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.Duration;
 
-/**
- * Redis cache configuration.
- */
 @Configuration
 @EnableCaching
 @Profile("!test")
 public class CacheConfig {
 
-    /**
-     * Configures Redis-based cache manager with custom JSON serialization.
-     * <p>
-     * This configuration sets up:
-     * - Jackson ObjectMapper with Java Time module support
-     * - ISO date serialization (no timestamps)
-     * - Default typing for safe polymorphic deserialization
-     * - String serialization for cache keys
-     * - JSON serialization for cache values
-     * - Time-to-live (TTL) of 10 minutes for cached entries
-     *
-     * @param factory Redis connection factory used to create cache manager
-     * @return configured RedisCacheManager instance
-     */
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory factory) {
 

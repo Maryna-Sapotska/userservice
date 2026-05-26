@@ -1,4 +1,4 @@
-package com.innowise.userservice.model;
+package com.innowise.userservice.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -9,9 +9,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Entity representing application user.
- */
 @Entity
 @Getter
 @Setter

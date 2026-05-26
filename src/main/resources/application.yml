@@ -7,7 +7,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-    show-sql: true
+    show-sql: false
     open-in-view: false
 
   liquibase:
@@ -27,6 +27,5 @@ server:
 
 logging:
   level:
-    org.springframework.cache: TRACE
-    org.springframework.data.redis: DEBUG
-    org.springframework.cache.interceptor: TRACE
+    root: INFO
+    org.springframework: INFO

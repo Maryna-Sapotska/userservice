@@ -1,8 +1,8 @@
 package com.innowise.userservice.controller;
 
-import com.innowise.userservice.model.CardDTO;
-import com.innowise.userservice.model.CreateCardDto;
-import com.innowise.userservice.model.UpdateCardDto;
+import com.innowise.userservice.model.dto.CardDTO;
+import com.innowise.userservice.model.dto.CreateCardDto;
+import com.innowise.userservice.model.dto.UpdateCardDto;
 import com.innowise.userservice.service.CardService;
 import com.innowise.userservice.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,9 +21,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * REST controller for payment card endpoints.
- */
 @RestController
 @RequestMapping(CardController.REST_URL)
 @RequiredArgsConstructor
@@ -33,7 +30,6 @@ public class CardController {
     public static final String REST_URL = "/cards";
 
     private final CardService cardService;
-    private final UserService userService;
 
     @Operation(summary = "Create card")
     @PostMapping

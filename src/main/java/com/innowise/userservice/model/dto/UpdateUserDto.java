@@ -1,4 +1,4 @@
-package com.innowise.userservice.model;
+package com.innowise.userservice.model.dto;
 
 import lombok.Getter;
 import lombok.Setter;

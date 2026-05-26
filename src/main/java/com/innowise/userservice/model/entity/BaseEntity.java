@@ -1,4 +1,4 @@
-package com.innowise.userservice.model;
+package com.innowise.userservice.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
@@ -11,10 +11,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-/**
- * Base entity containing audit information.
- * Stores creation and modification timestamps.
- */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Getter

@@ -4,11 +4,17 @@ import com.innowise.userservice.exception.BusinessException;
 import com.innowise.userservice.exception.CardNotFoundException;
 import com.innowise.userservice.exception.UserNotFoundException;
 import com.innowise.userservice.mapper.CardMapper;
-import com.innowise.userservice.model.*;
+import com.innowise.userservice.model.dto.CardDTO;
+import com.innowise.userservice.model.dto.CreateCardDto;
+import com.innowise.userservice.model.dto.UpdateCardDto;
+import com.innowise.userservice.model.entity.CacheNames;
+import com.innowise.userservice.model.entity.Card;
+import com.innowise.userservice.model.entity.User;
 import com.innowise.userservice.repository.CardRepository;
 import com.innowise.userservice.repository.CardSpecification;
 import com.innowise.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
@@ -20,10 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Service layer for managing payment cards.
- * Contains CRUD operations and business validations.
- */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -38,18 +40,12 @@ public class CardService {
     private static final String MAX_CARDS_ALLOWED = "Max 5 cards allowed";
     private static final String USER_NOT_FOUND = "User not found";
     private static final String CARD_NOT_FOUND = "Card not found";
+    private final CacheManager cacheManager;
 
-    /**
-     * Creates a new payment card for user.
-     * One user can own maximum 5 cards.
-     *
-     * @param dto card creation request
-     * @return created card DTO
-     * @throws BusinessException if card limit exceeded
-     */
     @Transactional
     @Caching(evict = {
             @CacheEvict(value = CacheNames.USERS_WITH_CARDS, key = "#dto.userId"),
+            @CacheEvict(value = CacheNames.USERS, key = "#dto.userId"),
             @CacheEvict(value = CacheNames.CARDS, allEntries = true)
     })
     public CardDTO create(CreateCardDto dto) {
@@ -74,15 +70,12 @@ public class CardService {
 
         Card savedCard = cardRepository.save(card);
 
+        cacheManager.getCache(CacheNames.USERS_WITH_CARDS).evict(dto.getUserId());
+        cacheManager.getCache(CacheNames.CARDS).evict(savedCard.getId());
+
         return cardMapper.toDto(savedCard);
     }
 
-    /**
-     * Retrieves card by identifier.
-     *
-     * @param id card identifier
-     * @return card DTO
-     */
     @Cacheable(value = CacheNames.CARDS, key = "#id")
     public CardDTO getById(Long id) {
         return cardMapper.toDto(cardRepository.findById(id)
@@ -90,33 +83,18 @@ public class CardService {
                         new CardNotFoundException(CARD_NOT_FOUND)));
     }
 
-    /**
-     * Returns all cards belonging to user.
-     *
-     * @param userId user identifier
-     * @return list of card DTOs
-     */
     public List<CardDTO> getByUserId(Long userId) {
         return cardMapper.toDtoList(cardRepository
                 .findByUser_Id(userId));
     }
 
-    /**
-     * Updates payment card information.
-     *
-     * @param id card identifier
-     * @param dto updated card data
-     * @return updated card DTO
-     */
     @Transactional
-    @Caching(evict = {
-            @CacheEvict(value = CacheNames.USERS_WITH_CARDS, key = "#dto.userId"),
-            @CacheEvict(value = CacheNames.CARDS, key = "#id")
-    })
     public CardDTO update(Long id, UpdateCardDto dto) {
         Card card = cardRepository.findById(id)
                 .orElseThrow(() ->
                         new CardNotFoundException(CARD_NOT_FOUND));
+
+        Long userId = card.getUser().getId();
 
         if (dto.getNumber() != null) {
             card.setNumber(dto.getNumber());
@@ -134,31 +112,27 @@ public class CardService {
             card.setActive(dto.getActive());
         }
 
-        return cardMapper.toDto(cardRepository.save(card));
+        Card saved = cardRepository.save(card);
+
+        cacheManager.getCache(CacheNames.USERS_WITH_CARDS).evict(userId);
+        cacheManager.getCache(CacheNames.CARDS).evict(id);
+
+        return cardMapper.toDto(saved);
     }
 
-    /**
-     * Deletes card by identifier.
-     *
-     * @param id card identifier
-     */
     @Transactional
-    @Caching(evict = {
-            @CacheEvict(value = CacheNames.CARDS, key = "#id"),
-            @CacheEvict(value = CacheNames.USERS_WITH_CARDS, allEntries = true)
-    })
     public void delete(Long id) {
-        cardRepository.deleteById(id);
+        Card card = cardRepository.findById(id)
+                .orElseThrow(() -> new CardNotFoundException(CARD_NOT_FOUND));
+
+        Long userId = card.getUser().getId();
+
+        cardRepository.delete(card);
+
+        cacheManager.getCache(CacheNames.CARDS).evict(id);
+        cacheManager.getCache(CacheNames.USERS_WITH_CARDS).evict(userId);
     }
 
-     /**
-     * Returns paginated list of cards with optional filters.
-     *
-     * @param holder card holder filter
-     * @param active active status filter
-     * @param pageable pagination information
-     * @return page of card DTOs
-     */
     public Page<CardDTO> getAll(String holder, Boolean active, Pageable pageable) {
         return cardRepository.findAll(Specification
                 .where(CardSpecification

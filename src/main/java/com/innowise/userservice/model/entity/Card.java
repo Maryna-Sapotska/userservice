@@ -1,4 +1,4 @@
-package com.innowise.userservice.model;
+package com.innowise.userservice.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -8,9 +8,6 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-/**
- * Entity representing payment card.
- */
 @Entity
 @Getter
 @Setter

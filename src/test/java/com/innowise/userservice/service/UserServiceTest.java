@@ -2,7 +2,11 @@ package com.innowise.userservice.service;
 
 import com.innowise.userservice.exception.UserNotFoundException;
 import com.innowise.userservice.mapper.UserMapper;
-import com.innowise.userservice.model.*;
+import com.innowise.userservice.model.dto.CreateUserDto;
+import com.innowise.userservice.model.dto.UpdateUserDto;
+import com.innowise.userservice.model.dto.UserDTO;
+import com.innowise.userservice.model.dto.UserWithCardsDto;
+import com.innowise.userservice.model.entity.User;
 import com.innowise.userservice.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

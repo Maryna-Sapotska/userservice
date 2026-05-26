@@ -1,7 +1,7 @@
 package com.innowise.userservice.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.innowise.userservice.model.*;
+import com.innowise.userservice.model.dto.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
