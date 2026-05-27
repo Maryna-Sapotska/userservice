@@ -7,16 +7,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.LocalDate;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 
 public class UserIntegrationTest extends AbstractIntegrationTest {
     @Autowired
@@ -73,17 +70,10 @@ public class UserIntegrationTest extends AbstractIntegrationTest {
                 .getResponse()
                 .getContentAsString();
 
-        MvcResult result = mockMvc.perform(post("/users")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(dto)))
-                .andDo(print())
-                .andReturn();
-
         UserDTO user =
                 objectMapper.readValue(response, UserDTO.class);
 
         mockMvc.perform(get("/users/{id}", user.getId()))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.email")
                         .value(email));

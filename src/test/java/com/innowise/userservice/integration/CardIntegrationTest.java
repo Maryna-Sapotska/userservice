@@ -15,7 +15,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 public class CardIntegrationTest extends AbstractIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
@@ -54,5 +53,42 @@ public class CardIntegrationTest extends AbstractIntegrationTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.holder")
                         .value("JOHN DOE"));
+    }
+
+    @Test
+    void shouldNotAllowMoreThan5Cards() throws Exception {
+
+        CreateUserDto userDto = new CreateUserDto();
+        userDto.setName("John");
+        userDto.setSurname("Doe");
+        userDto.setEmail("max@test.com");
+        userDto.setBirthDate(LocalDate.of(2000, 1, 1));
+
+        String userResponse = mockMvc.perform(post("/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(userDto)))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        UserDTO user = objectMapper.readValue(userResponse, UserDTO.class);
+
+        CreateCardDto cardDto = new CreateCardDto();
+        cardDto.setUserId(user.getId());
+        cardDto.setNumber("1234123412341234");
+        cardDto.setHolder("JOHN DOE");
+        cardDto.setExpirationDate(LocalDate.now().plusYears(3));
+
+        for (int i = 0; i < 5; i++) {
+            mockMvc.perform(post("/cards")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(cardDto)))
+                    .andExpect(status().isCreated());
+        }
+
+        mockMvc.perform(post("/cards")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(cardDto)))
+                .andExpect(status().isBadRequest());
     }
 }

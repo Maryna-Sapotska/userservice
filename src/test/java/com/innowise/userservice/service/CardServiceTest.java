@@ -1,6 +1,8 @@
 package com.innowise.userservice.service;
 
 import com.innowise.userservice.exception.BusinessException;
+import com.innowise.userservice.exception.CardNotFoundException;
+import com.innowise.userservice.exception.UserNotFoundException;
 import com.innowise.userservice.mapper.CardMapper;
 import com.innowise.userservice.model.dto.CardDTO;
 import com.innowise.userservice.model.dto.CreateCardDto;
@@ -14,14 +16,21 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import static org.mockito.ArgumentMatchers.eq;
+
 import static org.mockito.ArgumentMatchers.any;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CardServiceTest {
@@ -108,8 +117,12 @@ class CardServiceTest {
         dto.setHolder("JOHN DOE");
         dto.setExpirationDate(LocalDate.now().plusYears(1));
 
+        User user = new User();
+        user.setId(1L);
+
         Card card = new Card();
         card.setId(id);
+        card.setUser(user);
 
         when(cardRepository.findById(id)).thenReturn(Optional.of(card));
         when(cardRepository.save(card)).thenReturn(card);
@@ -125,9 +138,21 @@ class CardServiceTest {
 
         Long id = 1L;
 
+        Long userId = 10L;
+
+        User user = new User();
+        user.setId(userId);
+
+        Card card = new Card();
+        card.setId(id);
+        card.setUser(user);
+
+        when(cardRepository.findById(id))
+                .thenReturn(Optional.of(card));
+
         cardService.delete(id);
 
-        verify(cardRepository).deleteById(id);
+        verify(cardRepository).delete(card);
     }
 
     @Test
@@ -170,5 +195,115 @@ class CardServiceTest {
         assertFalse(card.isActive());
 
         verify(cardRepository).save(card);
+    }
+
+    @Test
+    void update_shouldThrow_whenCardNotFound() {
+
+        when(cardRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(CardNotFoundException.class,
+                () -> cardService.update(1L, new UpdateCardDto()));
+    }
+
+    @Test
+    void shouldReturnCardsByUserId() {
+
+        Long userId = 1L;
+
+        List<Card> cards = List.of(new Card(), new Card());
+
+        when(cardRepository.findByUser_Id(userId)).thenReturn(cards);
+        when(cardMapper.toDtoList(cards)).thenReturn(List.of(new CardDTO(), new CardDTO()));
+
+        List<CardDTO> result = cardService.getByUserId(userId);
+
+        assertEquals(2, result.size());
+        verify(cardRepository).findByUser_Id(userId);
+    }
+
+    @Test
+    void getAll_shouldReturnPagedCards() {
+
+        Pageable pageable = PageRequest.of(0, 10);
+
+        Card card = new Card();
+        Page<Card> page = new PageImpl<>(List.of(card));
+
+        when(cardRepository.findAll(any(Specification.class), eq(pageable)))
+                .thenReturn(page);
+
+        when(cardMapper.toDto(card)).thenReturn(new CardDTO());
+
+        Page<CardDTO> result = cardService.getAll(null, null, pageable);
+
+        assertEquals(1, result.getContent().size());
+    }
+
+    @Test
+    void delete_shouldThrow_whenCardNotFound() {
+
+        when(cardRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(CardNotFoundException.class,
+                () -> cardService.delete(1L));
+    }
+
+    @Test
+    void create_shouldThrow_whenUserNotFound() {
+        CreateCardDto dto = new CreateCardDto();
+        dto.setUserId(1L);
+
+        when(userRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(UserNotFoundException.class,
+                () -> cardService.create(dto));
+
+        verify(userRepository).findById(1L);
+    }
+
+    @Test
+    void create_shouldThrow_whenMapperReturnsNull() {
+        CreateCardDto dto = new CreateCardDto();
+        dto.setUserId(1L);
+
+        User user = new User();
+        user.setId(1L);
+
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+        when(cardRepository.countUserCards(1L)).thenReturn(0L);
+        when(cardMapper.toEntity(dto)).thenReturn(null);
+
+        assertThrows(BusinessException.class,
+                () -> cardService.create(dto));
+    }
+
+    @Test
+    void getById_shouldThrow_whenCardNotFound() {
+
+        when(cardRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(CardNotFoundException.class,
+                () -> cardService.getById(1L));
+    }
+
+    @Test
+    void update_shouldChangeOnlyHolder() {
+
+        Card card = new Card();
+        card.setHolder("OLD");
+        card.setNumber("1111");
+
+        UpdateCardDto dto = new UpdateCardDto();
+        dto.setHolder("NEW");
+
+        when(cardRepository.findById(1L)).thenReturn(Optional.of(card));
+        when(cardRepository.save(card)).thenReturn(card);
+        when(cardMapper.toDto(card)).thenReturn(new CardDTO());
+
+        cardService.update(1L, dto);
+
+        assertEquals("NEW", card.getHolder());
+        assertEquals("1111", card.getNumber()); // не должен измениться
     }
 }

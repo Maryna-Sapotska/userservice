@@ -14,7 +14,6 @@ import com.innowise.userservice.repository.CardRepository;
 import com.innowise.userservice.repository.CardSpecification;
 import com.innowise.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
@@ -40,7 +39,6 @@ public class CardService {
     private static final String MAX_CARDS_ALLOWED = "Max 5 cards allowed";
     private static final String USER_NOT_FOUND = "User not found";
     private static final String CARD_NOT_FOUND = "Card not found";
-    private final CacheManager cacheManager;
 
     @Transactional
     @Caching(evict = {
@@ -70,9 +68,6 @@ public class CardService {
 
         Card savedCard = cardRepository.save(card);
 
-        cacheManager.getCache(CacheNames.USERS_WITH_CARDS).evict(dto.getUserId());
-        cacheManager.getCache(CacheNames.CARDS).evict(savedCard.getId());
-
         return cardMapper.toDto(savedCard);
     }
 
@@ -89,12 +84,14 @@ public class CardService {
     }
 
     @Transactional
+    @Caching(evict = {
+            @CacheEvict(value = CacheNames.USERS_WITH_CARDS, allEntries = true),
+            @CacheEvict(value = CacheNames.CARDS, key = "#id")
+    })
     public CardDTO update(Long id, UpdateCardDto dto) {
         Card card = cardRepository.findById(id)
                 .orElseThrow(() ->
                         new CardNotFoundException(CARD_NOT_FOUND));
-
-        Long userId = card.getUser().getId();
 
         if (dto.getNumber() != null) {
             card.setNumber(dto.getNumber());
@@ -114,23 +111,19 @@ public class CardService {
 
         Card saved = cardRepository.save(card);
 
-        cacheManager.getCache(CacheNames.USERS_WITH_CARDS).evict(userId);
-        cacheManager.getCache(CacheNames.CARDS).evict(id);
-
         return cardMapper.toDto(saved);
     }
 
     @Transactional
+    @Caching(evict = {
+            @CacheEvict(value = CacheNames.CARDS, key = "#id"),
+            @CacheEvict(value = CacheNames.USERS_WITH_CARDS, allEntries = true)
+    })
     public void delete(Long id) {
         Card card = cardRepository.findById(id)
                 .orElseThrow(() -> new CardNotFoundException(CARD_NOT_FOUND));
 
-        Long userId = card.getUser().getId();
-
         cardRepository.delete(card);
-
-        cacheManager.getCache(CacheNames.CARDS).evict(id);
-        cacheManager.getCache(CacheNames.USERS_WITH_CARDS).evict(userId);
     }
 
     public Page<CardDTO> getAll(String holder, Boolean active, Pageable pageable) {

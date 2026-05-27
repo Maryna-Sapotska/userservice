@@ -39,27 +39,6 @@ class UserServiceTest {
     private UserService userService;
 
     @Test
-    void createUser_shouldReturnUserDTO() {
-        CreateUserDto dto = new CreateUserDto();
-        dto.setName("John");
-
-        User user = new User();
-        user.setId(1L);
-
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(1L);
-
-        when(userMapper.toEntity(dto)).thenReturn(user);
-        when(userRepository.save(user)).thenReturn(user);
-        when(userMapper.toDTO(user)).thenReturn(userDTO);
-
-        UserDTO result = userService.create(dto);
-
-        assertEquals(1L, result.getId());
-        verify(userRepository).save(user);
-    }
-
-    @Test
     void create_shouldCreateUser() {
 
         CreateUserDto dto = new CreateUserDto();
@@ -118,6 +97,7 @@ class UserServiceTest {
     void update_shouldActivateUser() {
 
         User user = new User();
+        user.setId(1L);
         user.setActive(false);
 
         UpdateUserDto dto = new UpdateUserDto();
@@ -143,6 +123,7 @@ class UserServiceTest {
     void update_shouldDeactivateUser() {
 
         User user = new User();
+        user.setId(1L);
         user.setActive(true);
 
         UpdateUserDto dto = new UpdateUserDto();
@@ -184,7 +165,7 @@ class UserServiceTest {
                 .thenReturn(Optional.of(user));
 
         when(userRepository.findByIdWithCards(id))
-                .thenReturn(Optional.of(user)); // 🔥 ВОТ ЭТО НЕ ХВАТАЛО
+                .thenReturn(Optional.of(user));
 
         when(userRepository.save(any(User.class)))
                 .thenReturn(user);
@@ -236,5 +217,73 @@ class UserServiceTest {
 
         Page<UserDTO> result = userService.getAll(null, null, null, pageable);
         assertEquals(1, result.getContent().size());
+    }
+
+    @Test
+    void shouldReturnUserWithCards() {
+        Long userId = 1L;
+
+        User user = new User();
+        user.setId(userId);
+
+        when(userRepository.findByIdWithCards(userId)).thenReturn(Optional.of(user));
+        when(userMapper.toUserWithCardsDto(user)).thenReturn(new UserWithCardsDto());
+
+        UserWithCardsDto result = userService.getUserWithCards(userId);
+
+        assertNotNull(result);
+        verify(userRepository).findByIdWithCards(userId);
+    }
+
+    @Test
+    void update_shouldThrow_whenUserNotFound() {
+
+        when(userRepository.findById(1L)).thenReturn(Optional.empty());
+
+        UpdateUserDto dto = new UpdateUserDto();
+
+        assertThrows(UserNotFoundException.class,
+                () -> userService.update(1L, dto));
+    }
+
+    @Test
+    void update_shouldThrow_whenReloadUserNotFound() {
+
+        User user = new User();
+        user.setId(1L);
+
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+        when(userRepository.save(user)).thenReturn(user);
+
+        when(userRepository.findByIdWithCards(1L)).thenReturn(Optional.empty());
+
+        assertThrows(UserNotFoundException.class,
+                () -> userService.update(1L, new UpdateUserDto()));
+    }
+
+    @Test
+    void getUserWithCards_shouldThrow_whenNotFound() {
+
+        when(userRepository.findByIdWithCards(1L)).thenReturn(Optional.empty());
+
+        assertThrows(UserNotFoundException.class,
+                () -> userService.getUserWithCards(1L));
+    }
+
+    @Test
+    void create_shouldSetActiveTrue() {
+
+        CreateUserDto dto = new CreateUserDto();
+
+        User user = new User();
+        User saved = new User();
+
+        when(userMapper.toEntity(dto)).thenReturn(user);
+        when(userRepository.save(user)).thenReturn(saved);
+        when(userMapper.toDTO(saved)).thenReturn(new UserDTO());
+
+        userService.create(dto);
+
+        assertTrue(user.isActive());
     }
 }

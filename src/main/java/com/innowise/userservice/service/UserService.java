@@ -12,7 +12,6 @@ import com.innowise.userservice.repository.UserRepository;
 import com.innowise.userservice.repository.UserSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
