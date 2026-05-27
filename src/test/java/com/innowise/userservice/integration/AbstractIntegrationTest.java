@@ -18,9 +18,8 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("test")
 public abstract class AbstractIntegrationTest {
 
-    @Container
     @ServiceConnection
-    static final PostgreSQLContainer<?> postgres =
+    static PostgreSQLContainer<?> postgres =
             new PostgreSQLContainer<>("postgres:16-alpine");
 
     @Autowired
