@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.innowise.userservice.service.UserServiceTest
+-------------------------------------------------------------------------------
+Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.042 s -- in com.innowise.userservice.service.UserServiceTest

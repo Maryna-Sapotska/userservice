@@ -1,0 +1,6 @@
+com/innowise/userservice/integration/UserIntegrationTest.class
+com/innowise/userservice/integration/CardIntegrationTest.class
+com/innowise/userservice/integration/FullFlowIntegrationTest.class
+com/innowise/userservice/service/UserServiceTest.class
+com/innowise/userservice/integration/AbstractIntegrationTest.class
+com/innowise/userservice/service/CardServiceTest.class
