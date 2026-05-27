@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="34f31574-5d5b-42e3-a77e-bdd3f35aa9d3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/innowise/userservice/service/CardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/innowise/userservice/service/CardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/innowise/userservice/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/innowise/userservice/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/innowise/userservice/integration/AbstractIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/innowise/userservice/integration/AbstractIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/innowise/userservice/integration/CardIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/innowise/userservice/integration/CardIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/innowise/userservice/integration/FullFlowIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/innowise/userservice/integration/FullFlowIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/innowise/userservice/integration/UserIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/innowise/userservice/integration/UserIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/innowise/userservice/service/CardServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/innowise/userservice/service/CardServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/innowise/userservice/service/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/innowise/userservice/service/UserServiceTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JUnit5 Test Class" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Maryna-Sapotska&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Maryna-Sapotska/userservice.git&quot;,
+    &quot;accountId&quot;: &quot;dc6713cf-3bc9-4689-a45f-bbf8b6286873&quot;
+  }
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="3DtrUOJksVH00swGazLsLIgGzb2" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.CardIntegrationTest.createCard_shouldReturn201.executor": "Run",
+    "JUnit.CardIntegrationTest.executor": "Run",
+    "JUnit.CardServiceTest.activate_shouldSetActiveTrue.executor": "Run",
+    "JUnit.CardServiceTest.createCard_shouldCreateSuccessfully.executor": "Run",
+    "JUnit.CardServiceTest.createCard_shouldThrow_whenLimitExceeded.executor": "Run",
+    "JUnit.CardServiceTest.create_shouldThrow_whenMapperReturnsNull.executor": "Run",
+    "JUnit.CardServiceTest.create_shouldThrow_whenUserNotFound.executor": "Run",
+    "JUnit.CardServiceTest.deactivate_shouldSetActiveFalse.executor": "Run",
+    "JUnit.CardServiceTest.delete_shouldDeleteCard.executor": "Run",
+    "JUnit.CardServiceTest.delete_shouldThrow_whenCardNotFound.executor": "Run",
+    "JUnit.CardServiceTest.executor": "Run",
+    "JUnit.CardServiceTest.getAll_shouldReturnPagedCards.executor": "Run",
+    "JUnit.CardServiceTest.getById_shouldReturnCard.executor": "Run",
+    "JUnit.CardServiceTest.getById_shouldThrow_whenCardNotFound.executor": "Run",
+    "JUnit.CardServiceTest.shouldReturnCardsByUserId.executor": "Run",
+    "JUnit.CardServiceTest.update_shouldActivateCard.executor": "Run",
+    "JUnit.CardServiceTest.update_shouldChangeOnlyHolder.executor": "Run",
+    "JUnit.CardServiceTest.update_shouldDeactivateCard.executor": "Run",
+    "JUnit.CardServiceTest.update_shouldModifyCard.executor": "Run",
+    "JUnit.CardServiceTest.update_shouldThrow_whenCardNotFound.executor": "Run",
+    "JUnit.FullFlowIntegrationTest.executor": "Run",
+    "JUnit.FullFlowIntegrationTest.fullFlow_userCardLifecycle_shouldWork.executor": "Run",
+    "JUnit.UserIntegrationTest.createUser_shouldReturn201.executor": "Run",
+    "JUnit.UserIntegrationTest.executor": "Run",
+    "JUnit.UserIntegrationTest.getUserById_shouldReturn200.executor": "Run",
+    "JUnit.UserServiceTest.delete_shouldRemoveUser_whenExists.executor": "Run",
+    "JUnit.UserServiceTest.delete_shouldThrow_whenUserNotFound.executor": "Run",
+    "JUnit.UserServiceTest.executor": "Run",
+    "JUnit.UserServiceTest.getAll_shouldReturnPage.executor": "Run",
+    "JUnit.UserServiceTest.shouldReturnUserWithCards.executor": "Run",
+    "JUnit.UserServiceTest.update_shouldActivateUser.executor": "Run",
+    "JUnit.UserServiceTest.update_shouldDeactivateUser.executor": "Run",
+    "JUnit.UserServiceTest.update_shouldThrow_whenUserNotFound.executor": "Run",
+    "JUnit.UserServiceTest.update_shouldUpdateUserAndReturnDto.executor": "Run",
+    "Maven.userservice [clean].executor": "Run",
+    "Maven.userservice [package].executor": "Run",
+    "Maven.userservice [test].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.UserserviceApplication.executor": "Run",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "develop",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/Marina/Downloads/userservice/src/test/java/resources",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/java/resources" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/resources/db/changelog" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/resources" />
+      <recent name="$PROJECT_DIR$/src/test/java" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.innowise.userservice.service" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.innowise.userservice.repository" />
+      <recent name="com.innowise.userservice.mapper" />
+      <recent name="com.innowise.userservice.exception" />
+      <recent name="com.innowise.userservice.service" />
+      <recent name="com.innowise.userservice.controller" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.CardIntegrationTest.shouldNotAllowMoreThan5Cards">
+    <configuration name="CardIntegrationTest.shouldNotAllowMoreThan5Cards" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="userservice" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.innowise.userservice.integration.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.innowise.userservice.integration" />
+      <option name="MAIN_CLASS_NAME" value="com.innowise.userservice.integration.CardIntegrationTest" />
+      <option name="METHOD_NAME" value="shouldNotAllowMoreThan5Cards" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceTest.create_shouldSetActiveTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="userservice" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.innowise.userservice.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.innowise.userservice.service" />
+      <option name="MAIN_CLASS_NAME" value="com.innowise.userservice.service.UserServiceTest" />
+      <option name="METHOD_NAME" value="create_shouldSetActiveTrue" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceTest.getUserWithCards_shouldThrow_whenNotFound" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="userservice" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.innowise.userservice.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.innowise.userservice.service" />
+      <option name="MAIN_CLASS_NAME" value="com.innowise.userservice.service.UserServiceTest" />
+      <option name="METHOD_NAME" value="getUserWithCards_shouldThrow_whenNotFound" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceTest.update_shouldThrow_whenReloadUserNotFound" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="userservice" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.innowise.userservice.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.innowise.userservice.service" />
+      <option name="MAIN_CLASS_NAME" value="com.innowise.userservice.service.UserServiceTest" />
+      <option name="METHOD_NAME" value="update_shouldThrow_whenReloadUserNotFound" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceTest.update_shouldThrow_whenUserNotFound" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="userservice" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.innowise.userservice.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.innowise.userservice.service" />
+      <option name="MAIN_CLASS_NAME" value="com.innowise.userservice.service.UserServiceTest" />
+      <option name="METHOD_NAME" value="update_shouldThrow_whenUserNotFound" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserserviceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="ACTIVE_PROFILES" value="local" />
+      <envs>
+        <env name="DB_URL" value="jdbc:postgresql://localhost:5435/userservice" />
+        <env name="DB_USERNAME" value="userservice" />
+        <env name="DB_PASSWORD" value="userservice" />
+        <env name="DB_DRIVER" value="org.postgresql.Driver" />
+        <env name="SPRING_REDIS_HOST" value="localhost" />
+        <env name="SPRING_REDIS_PORT" value="6379" />
+      </envs>
+      <module name="userservice" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.innowise.userservice.UserserviceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.CardIntegrationTest.shouldNotAllowMoreThan5Cards" />
+      <item itemvalue="JUnit.UserServiceTest.create_shouldSetActiveTrue" />
+      <item itemvalue="JUnit.UserServiceTest.getUserWithCards_shouldThrow_whenNotFound" />
+      <item itemvalue="JUnit.UserServiceTest.update_shouldThrow_whenReloadUserNotFound" />
+      <item itemvalue="JUnit.UserServiceTest.update_shouldThrow_whenUserNotFound" />
+      <item itemvalue="Spring Boot.UserserviceApplication" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.CardIntegrationTest.shouldNotAllowMoreThan5Cards" />
+        <item itemvalue="JUnit.UserServiceTest.create_shouldSetActiveTrue" />
+        <item itemvalue="JUnit.UserServiceTest.getUserWithCards_shouldThrow_whenNotFound" />
+        <item itemvalue="JUnit.UserServiceTest.update_shouldThrow_whenReloadUserNotFound" />
+        <item itemvalue="JUnit.UserServiceTest.update_shouldThrow_whenUserNotFound" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.28539.54" />
+        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-IU-252.28539.54" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="34f31574-5d5b-42e3-a77e-bdd3f35aa9d3" name="Changes" comment="" />
+      <created>1779112224841</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1779112224841</updated>
+      <workItem from="1779112225843" duration="77678000" />
+      <workItem from="1779468249276" duration="16846000" />
+      <workItem from="1779783371820" duration="2025000" />
+      <workItem from="1779786385833" duration="247000" />
+      <workItem from="1779787553274" duration="50000" />
+      <workItem from="1779787810435" duration="20000" />
+      <workItem from="1779791751217" duration="20607000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/innowise/userservice/integration/FullFlowIntegrationTest.java</url>
+          <line>16</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
